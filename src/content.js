@@ -3,6 +3,8 @@
         return;
     }
 
+    const CNYRate = 7.767; // Yes, hardcoded exchange rate, I know pathetic
+
     function isVisible(el) {
         if (!el) return false;
 
@@ -35,7 +37,6 @@
     }
 
     function editPrice() {
-        const cnyRate = 7.767; // Yes, hardcoded exchange rate, I know pathetic
         let attempts = 0;
 
         const interval = setInterval(() => {
@@ -58,7 +59,7 @@
 
                 if (!amountCny) continue;
 
-                const amountEur = amountCny / cnyRate;
+                const amountEur = amountCny / CNYRate;
                 const euroText = `€${amountEur.toFixed(2)}`;
 
                 let euroLabel = price.querySelector(".euro-price-label");
@@ -88,7 +89,6 @@
     }
 
     function editOtherPrices() {
-        const cnyRate = 7.767; // Yes, hardcoded exchange rate, I know pathetic
         let attempts = 0;
 
         const interval = setInterval(() => {
@@ -112,7 +112,7 @@
 
                 if (!amountCny) continue;
 
-                const amountEur = amountCny / cnyRate;
+                const amountEur = amountCny / CNYRate;
                 const euroText = `€${amountEur.toFixed(2)}`;
 
                 let euroLabel = price.querySelector(".euro-price-label");
