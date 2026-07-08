@@ -5,7 +5,7 @@
 - [X] Close the big popup what forces login
 - [X] Close the footer
 - [X] Close the help buble on the side
-- [ ] Show the price in different currencies
+- [X] Show the price in Euro
 - [ ] Write better price changer
 
 To get the exchange rate I'm using the [Frankfurter API](https://frankfurter.dev/).
