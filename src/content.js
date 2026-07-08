@@ -35,7 +35,7 @@
     }
 
     function editPrice() {
-        const cnyRate = 7.767; // Fallback rate
+        const cnyRate = 7.767; // Yes, hardcoded exchange rate, I know pathetic
         let attempts = 0;
 
         const interval = setInterval(() => {
@@ -87,6 +87,64 @@
         }, 500);
     }
 
+    function editOtherPrices() {
+        const cnyRate = 7.767; // Yes, hardcoded exchange rate, I know pathetic
+        let attempts = 0;
+
+        const interval = setInterval(() => {
+            attempts++;
+
+            const candidates = document.querySelectorAll("[class*='number--']");
+            let updatedCount = 0;
+
+            for (const price of candidates) {
+                if (!isVisible(price)) continue;
+
+                const textValue = price.childNodes[0]?.textContent?.trim() || "";
+
+                if (!textValue) continue;
+
+                const match = textValue.match(/[\d,.]+/);
+
+                if (!match) continue;
+
+                const amountCny = Number(match[0].replace(/,/g, ""));
+
+                if (!amountCny) continue;
+
+                const amountEur = amountCny / cnyRate;
+                const euroText = `€${amountEur.toFixed(2)}`;
+
+                let euroLabel = price.querySelector(".euro-price-label");
+
+                if (!euroLabel) {
+                    euroLabel = document.createElement("span");
+                    euroLabel.className = "euro-price-label";
+                    euroLabel.style.marginLeft = "8px";
+                    euroLabel.style.fontSize = "18px";
+                    euroLabel.style.fontWeight = "normal";
+                    euroLabel.style.opacity = "0.85";
+
+                    price.appendChild(euroLabel);
+                }
+
+                euroLabel.textContent = `≈ ${euroText}`;
+                updatedCount++;
+            }
+
+            if (updatedCount > 0) {
+                console.log(`UPDATED ${updatedCount} PRICE ELEMENTS`);
+                clearInterval(interval);
+                return;
+            }
+
+            if (attempts >= 10) {
+                console.log("PRICE NOT FOUND");
+                clearInterval(interval);
+            }
+        }, 500);
+    }
+
     function clickCloseIcon() {
         const candidates = document.querySelectorAll("[class*='closeIcon--']");
 
@@ -112,6 +170,7 @@
 
     if (clickCloseIcon()) {
         editPrice();
+        editOtherPrices();
     }
 
     const observer = new MutationObserver(() => {

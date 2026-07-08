@@ -6,8 +6,6 @@
 - [X] Close the footer
 - [X] Close the help buble on the side
 - [X] Show the price in Euro
-- [ ] Write better price changer
-
-To get the exchange rate I'm using the [Frankfurter API](https://frankfurter.dev/).
+- [ ] Detect if price is above 10k(different method needed)
 
 DISCLAIMER: I've read Mozilla developer resources, but parts of the code was vibecoded because I speak no JS.
