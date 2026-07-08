@@ -1,0 +1,10 @@
+{
+    "appName": {
+        "message": "Goofisher",
+        "description": "App Name"
+    },
+    "appDescription": {
+        "message": "Using Goofish easier",
+        "description": "Description"
+    }
+}
