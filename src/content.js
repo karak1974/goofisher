@@ -1,10 +1,10 @@
 (() => {
-	if (window.location.hostname !== "www.goofish.com") {
-	    return;
-	}
+    if (window.location.hostname !== "www.goofish.com") {
+        return;
+    }
 
-	function isVisible(el) {
-		if (!el) return false;
+    function isVisible(el) {
+        if (!el) return false;
 
         const style = window.getComputedStyle(el);
         const rect = el.getBoundingClientRect();
@@ -18,19 +18,39 @@
         );
     }
 
-    function clickCloseIcon() {
-        const closeIcons = document.querySelectorAll(
-            "img.closeIcon--gwB7wNKs, img.closeIcon--jnS6DrX5, img.closeIcon--XlKKbKOd"
+    function isCloseIcon(el) {
+        if (!el || !el.classList) return false;
+
+        return [...el.classList].some(className =>
+            /^closeIcon--/.test(className)
         );
+    }
 
-        for (const closeIcon of closeIcons) {
+    function clickElement(el) {
+        el.dispatchEvent(new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+            view: window
+        }));
+    }
+
+    function clickCloseIcon() {
+        const candidates = document.querySelectorAll("[class*='closeIcon--']");
+
+        for (const closeIcon of candidates) {
+            if (!isCloseIcon(closeIcon)) continue;
             if (!isVisible(closeIcon)) continue;
-            closeIcon.click();
 
-            const clickableParent = closeIcon.closest("button, a, div, span");
+            clickElement(closeIcon);
+
+            const clickableParent = closeIcon.closest(
+                "button, a, [role='button'], div, span"
+            );
+
             if (clickableParent && clickableParent !== closeIcon) {
-                clickableParent.click();
+                clickElement(clickableParent);
             }
+
             return true;
         }
 
@@ -38,14 +58,16 @@
     }
 
     clickCloseIcon();
+
     const observer = new MutationObserver(() => {
         clickCloseIcon();
     });
-        
+
     observer.observe(document.documentElement, {
         childList: true,
         subtree: true,
-        attributes: true
+        attributes: true,
+        attributeFilter: ["class", "style"]
     });
 
     const interval = setInterval(() => {
