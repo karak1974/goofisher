@@ -9,4 +9,10 @@
 - [X] Dynamic exchange rate using FrankfurterAPI
 - [ ] Detect price magnitude
 
-DISCLAIMER: I've read Mozilla developer resources, but parts of the code was vibecoded because I speak no JS.
+## Build
+To build this project `web-ext` is required
+```
+git clone https://github.com/karak1974/goofisher
+cd goofisher
+./build.sh
+```
