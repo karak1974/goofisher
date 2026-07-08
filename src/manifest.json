@@ -20,7 +20,8 @@
         "http://goofish.com/*",
         "https://goofish.com/*",
         "http://www.goofish.com/*",
-        "https://www.goofish.com/*"
+        "https://www.goofish.com/*",
+        "https://api.frankfurter.dev/*"
     ],
     "content_scripts": [{
         "matches": [
